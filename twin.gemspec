@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.rubyforge_project = '[none]'
 
   s.add_dependency 'activesupport'
+  s.add_dependency 'amatch', '0.2.11'
 end
