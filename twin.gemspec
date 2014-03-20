@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ["Philippe Dionne"]
   s.email         = ["dionne.phil@gmail.com"]
   s.homepage      = "https://github.com/phildionne/twin"
-  s.summary       = "TODO: summary"
-  s.description   = "TODO: description"
+  s.summary       = "Smartly merge multiple objects together."
+  s.description   = "Twin sorts through the small differences between multiple objects and smartly consolidate all of them together."
 
   s.files         = `git ls-files app lib`.split("\n")
   s.platform      = Gem::Platform::RUBY
