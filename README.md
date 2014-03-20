@@ -1,5 +1,10 @@
 # Twin
 
+[![Gem Version](https://badge.fury.io/rb/twin.png)](http://badge.fury.io/rb/twin)
+[![Code Climate](https://codeclimate.com/github/phildionne/twin.png)](https://codeclimate.com/github/phildionne/twin)
+[![Coverage Status](https://coveralls.io/repos/phildionne/twin/badge.png)](https://coveralls.io/r/phildionne/twin)
+[![Dependency Status](https://gemnasium.com/phildionne/twin.png)](https://gemnasium.com/phildionne/twin)
+[![Build Status](https://travis-ci.org/phildionne/twin.png)](https://travis-ci.org/phildionne/twin)
 
 ## Usage
 
