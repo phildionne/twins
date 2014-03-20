@@ -1,3 +1,4 @@
+require 'active_support/core_ext'
 require 'twin/utilities'
 
 module Twin
@@ -9,30 +10,28 @@ module Twin
     raise ArgumentError, "The collection's elements must all be of type 'Hash'" unless collection.all? { |e| e.is_a?(Hash) }
     return nil unless collection.any?
 
+    options = options.with_indifferent_access
     consolidated = Hash.new
 
     collection.each do |hash|
-      hash.each_key do |key|
-        # Filter elements without a given key to avoid unintentionally nil values
-        filtered = collection.select { |element| element.has_key?(key) }.map { |element| element[key] }
+      hash.each_pair do |key, value|
 
-        # All differents, determine candidat using priority
-        if filtered.uniq.none? && options[:priority][key]
-
-          case
-          when filtered.all? { |element| element.is_a?(String) }
-            consolidated[key] = Twin::Utilities.min_distance(options[:priority][key], filtered)
-
-          when filtered.all? { |element| element.is_a?(Numeric) }
-            consolidated[key] = Twin::Utilities.min_difference(options[:priority][key], filtered)
-
-          else
-            consolidated[key] = filtered.first
-          end
-
-        # At least two are the same or all are different, with no priority, determine candidat using mode
+        # Recursively consolidate nested hashes
+        if value.is_a?(Hash) && !consolidated[key]
+          consolidated[key] = consolidate(collection.map { |element| element[key] })
         else
-          consolidated[key] = Twin::Utilities.mode(filtered)
+          # Filter elements without a given key to avoid unintentionally nil values
+          values = collection.select { |element| element.has_key?(key) }.map { |element| element[key] }
+
+          if options[:priority].try(:[], key)
+            # Compute each element's distance from the given priority
+            distances = values.map { |f| Twin::Utilities.distance(options[:priority][key], f) }
+
+            # Find the first element with the shortest distance
+            consolidated[key] = values[distances.index(distances.min)]
+          else
+            consolidated[key] = Twin::Utilities.mode(values)
+          end
         end
       end
     end

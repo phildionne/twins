@@ -4,50 +4,43 @@ module Twin
   module Utilities
 
     # @param collection [Enumerable]
-    # @return Object
+    # @return [Object]
     def mode(collection)
       collection.group_by { |n| n }.values.max_by(&:size).first
     end
     module_function :mode
 
-    # @param a [String]
-    # @param b [String]
-    # @return Float
+    # Normalized distance for Strings and Numerics
+    # the lower the result, the shortest the distance
+    #
+    # @param a [String, Numeric]
+    # @param b [String, Numeric]
+    # @return [Float]
     def distance(a, b)
-      Levenshtein.new(a).match(b)
+      if a.is_a?(String) && b.is_a?(String)
+        Twin::Utilities.string_distance(a, b) * -1
+      elsif a.is_a?(Numeric) && b.is_a?(Numeric)
+        Twin::Utilities.numeric_distance(a, b)
+      else
+        raise StandardError, "Distance can only be determined between two elements of kind 'String' or 'Numeric'"
+      end
     end
     module_function :distance
 
     # @param a [String]
-    # @param collection [Array]
-    # @return Float
-    def min_distance(a, collection)
-      collection.min { |element| distance(a, element) }
+    # @param b [String]
+    def string_distance(a, b)
+      raise StandardError, "Distance can only be determined between two elements of kind 'String'" unless a.is_a?(String) && b.is_a?(String)
+      Amatch::LongestSubsequence.new(a).match(b)
     end
-    module_function :min_distance
+    module_function :string_distance
 
-    # @param a [String]
-    # @param collection [Array]
-    # @return Float
-    def max_distance(a, collection)
-      collection.max { |element| distance(a, element) }
+    # @param a [Numeric]
+    # @param b [Numeric]
+    def numeric_distance(a, b)
+      raise StandardError, "Distance can only be determined between two elements of kind 'Numeric'" unless a.is_a?(Numeric) && b.is_a?(Numeric)
+      (a - b).abs
     end
-    module_function :max_distance
-
-    # @param i [Numeric]
-    # @param collection [Array]
-    # @return Float
-    def min_difference(i, collection)
-      collection.min { |element| (i - element).abs }
-    end
-    module_function :min_difference
-
-    # @param i [Numeric]
-    # @param collection [Array]
-    # @return Float
-    def max_difference(i, collection)
-      collection.max { |element| (i - element).abs }
-    end
-    module_function :max_difference
+    module_function :numeric_distance
   end
 end
