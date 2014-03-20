@@ -24,6 +24,26 @@ describe Twin do
       it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }.with_indifferent_access) }
     end
 
+    describe "with nested arrays" do
+      let(:collection) do
+        [
+          {
+            a: 'a',
+            b: [{ x: 'xx' }]
+          },
+          {
+            a: 'a',
+            b: [{ x: 'x' }]
+          },
+          {
+            a: 'aa',
+            b: [{ x: 'x' }]
+          }
+        ]
+      end
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: [{ x: 'x' }] }.with_indifferent_access) }
+    end
+
     describe "with nested hashes" do
       let(:collection) do
         [{ a: 'a',
