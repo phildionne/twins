@@ -8,6 +8,8 @@
 
 ## Usage
 
+By default `Twin` will determine the candidate value based on the most frequent value present for a same key, also known as the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)).
+
 ```ruby
 books = [{
   title: "Shantaram: A Novel",
@@ -54,7 +56,7 @@ Twin.consolidate(books)
 }
 ```
 
-You may also provide a priority hash, which will be used to determine the best canditate for consolidation. Strings distance are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and Numerics distance are calculated from their difference.
+You may also provide `Twin` with priorities, which will precede on the mode while determining the canditate value. [Strings distance]() are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numerics distance]() are calculated with their difference.
 
 ```ruby
 options = {
