@@ -56,7 +56,7 @@ Twin.consolidate(books)
 }
 ```
 
-You may also provide `Twin` with priorities, which will precede on the mode while determining the canditate value. [Strings distance]() are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numerics distance]() are calculated with their difference.
+You may also provide `Twin` with priorities for `String` and `Numeric` attributes, which will precede on the mode while determining the canditate value. [String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
 
 ```ruby
 options = {
