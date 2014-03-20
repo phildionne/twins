@@ -42,6 +42,18 @@ describe Twin do
       it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
+    describe "with Objects defining instance variables" do
+      before do
+        class Klass
+          attr_accessor :a, :b
+          def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
+        end
+      end
+      let(:collection) { [Klass.new({a: "some", b: "thing"}), Klass.new({a: "another", b: "thing"})] }
+
+      it { expect(Twin.consolidate(collection)).to eq({ a: "some", b: "thing" }.with_indifferent_access) }
+    end
+
     context "with options" do
 
       describe :priority do

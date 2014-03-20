@@ -7,8 +7,17 @@ module Twin
   # @param options [Hash]
   # @return [Hash, Nil]
   def consolidate(collection, options = {})
-    raise ArgumentError, "The collection's elements must all be of type 'Hash'" unless collection.all? { |e| e.is_a?(Hash) }
     return nil unless collection.any?
+
+    if collection.all? { |e| e.is_a?(Hash) }
+      # noop
+    elsif collection.all? { |e| e.is_a?(collection.first.class) }
+      collection = collection.map do |element|
+        Hash[element.instance_variables.map { |name| [name.to_s.sub(/\A@/, ''), element.instance_variable_get(name)] }]
+      end
+    else
+      raise ArgumentError, "The collection's elements must all be of the same Class"
+    end
 
     options = options.with_indifferent_access
     consolidated = Hash.new
