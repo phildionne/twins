@@ -36,7 +36,7 @@ module Twin
       end
     end
 
-    consolidated
+    consolidated.with_indifferent_access
   end
   module_function :consolidate
 end

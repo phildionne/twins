@@ -11,17 +11,17 @@ describe Twin do
 
     describe "with a collection of all same elements" do
       let(:collection) { [{ a: 'a' }, { a: 'a' }, { a: 'a' }] }
-      it { expect(Twin.consolidate(collection)).to eq({ a: 'a' }) }
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'a' }.with_indifferent_access) }
     end
 
     describe "with a collection of all different elements" do
       let(:collection) { [{ a: 'a' }, { b: 'b' }, { c: 'c' }] }
-      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }) }
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }.with_indifferent_access) }
     end
 
     describe "with a collection of same and different elements" do
       let(:collection) { [{ a: 'a', b: 'b' }, { a: 'a', b: 'b' }, { a: 'a', b: 'b', c: 'c' }] }
-      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }) }
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }.with_indifferent_access) }
     end
 
     describe "with nested hashes" do
@@ -39,7 +39,7 @@ describe Twin do
             }
           }]
       end
-      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}) }
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
     context "with options" do
@@ -51,17 +51,17 @@ describe Twin do
 
           describe "with a single match" do
             let(:collection) { [{ element: 'something' }, { element: 'something' }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'something' }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'something' }.with_indifferent_access) }
           end
 
           describe "with multiple matches" do
             let(:collection) { [{ element: 'some' }, { element: 'thing' }, { element: 'something' }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'something' }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'something' }.with_indifferent_access) }
           end
 
           describe "with no match" do
             let(:collection) { [{ element: 'thing1' }, { element: 'thing2' }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'thing1' }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 'thing1' }.with_indifferent_access) }
           end
         end
 
@@ -70,32 +70,32 @@ describe Twin do
 
           describe "with no difference and no mode" do
             let(:collection) { [{ element: 10 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 10 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 10 }.with_indifferent_access) }
           end
 
           describe "with no difference and a mode" do
             let(:collection) { [{ element: 10 }, { element: 10 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 10 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 10 }.with_indifferent_access) }
           end
 
           describe "with a higher difference and no mode" do
             let(:collection) { [{ element: 1 }, { element: 2 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }.with_indifferent_access) }
           end
 
           describe "with a higher difference and a mode" do
             let(:collection) { [{ element: 1 }, { element: 1 }, { element: 2 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }.with_indifferent_access) }
           end
 
           describe "with a lower difference and no mode" do
             let(:collection) { [{ element: 1 }, { element: 2 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }.with_indifferent_access) }
           end
 
           describe "with a lower difference and a mode" do
             let(:collection) { [{ element: 1 }, { element: 2 }, { element: 2 }] }
-            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }) }
+            it { expect(Twin.consolidate(collection, options)).to eq({ element: 2 }.with_indifferent_access) }
           end
         end
       end
