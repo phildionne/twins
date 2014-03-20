@@ -69,9 +69,9 @@ describe Twin do
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
         end
       end
-      let(:collection) { [Klass.new({a: "some", b: "thing"}), Klass.new({a: "another", b: "thing"})] }
+      let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
 
-      it { expect(Twin.consolidate(collection)).to eq({ a: "some", b: "thing" }.with_indifferent_access) }
+      it { expect(Twin.consolidate(collection)).to eq({ a: 'some', b: 'thing' }.with_indifferent_access) }
     end
 
     context "with options" do
@@ -132,6 +132,5 @@ describe Twin do
         end
       end
     end
-
   end
 end
