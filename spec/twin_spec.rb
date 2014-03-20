@@ -46,10 +46,11 @@ describe Twin do
 
     describe "with nested hashes" do
       let(:collection) do
-        [{ a: 'a',
+        [
+          { a: 'a',
             b: {
-              x: 'x',
-              y: 'y'
+              x: 'xx',
+              y: 'yy'
             }
           },
           { a: 'a',
@@ -57,7 +58,14 @@ describe Twin do
               x: 'x',
               y: 'y'
             }
-          }]
+          },
+          { a: 'aa',
+            b: {
+              x: 'x',
+              y: 'y'
+            }
+          }
+        ]
       end
       it { expect(Twin.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
