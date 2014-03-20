@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.authors       = ["Philippe Dionne"]
   s.email         = ["dionne.phil@gmail.com"]
   s.homepage      = "https://github.com/phildionne/twin"
+  s.licenses      = ['MIT']
   s.summary       = "Smartly merge multiple objects together."
   s.description   = "Twin sorts through the small differences between multiple objects and smartly consolidate all of them together."
 
@@ -16,6 +17,7 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
   s.require_paths = ['lib']
   s.rubyforge_project = '[none]'
+  s.test_files    = s.files.grep(%r{^(spec)/})
 
   s.add_dependency 'activesupport'
   s.add_dependency 'amatch', '0.2.11'
