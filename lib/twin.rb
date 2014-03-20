@@ -36,9 +36,10 @@ module Twin
             # Compute each element's distance from the given priority
             distances = values.map { |f| Twin::Utilities.distance(options[:priority][key], f) }
 
-            # Find the first element with the shortest distance
+            # The best candidate is the first element with the shortest distance
             consolidated[key] = values[distances.index(distances.min)]
           else
+            # The best candidate is the mode or the first one
             consolidated[key] = Twin::Utilities.mode(values)
           end
         end
