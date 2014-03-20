@@ -1,7 +1,7 @@
 require 'active_support/core_ext'
-require 'twin/utilities'
+require 'twins/utilities'
 
-module Twin
+module Twins
 
   # @param collection [Enumerable] A collection of Hash objects
   # @param options [Hash]
@@ -34,13 +34,13 @@ module Twin
 
           if options[:priority].try(:[], key)
             # Compute each element's distance from the given priority
-            distances = values.map { |f| Twin::Utilities.distance(options[:priority][key], f) }
+            distances = values.map { |f| Twins::Utilities.distance(options[:priority][key], f) }
 
             # The best candidate is the first element with the shortest distance
             consolidated[key] = values[distances.index(distances.min)]
           else
             # The best candidate is the mode or the first one
-            consolidated[key] = Twin::Utilities.mode(values)
+            consolidated[key] = Twins::Utilities.mode(values)
           end
         end
       end

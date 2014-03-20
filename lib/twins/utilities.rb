@@ -1,6 +1,6 @@
 require 'amatch'
 
-module Twin
+module Twins
   module Utilities
 
     # @param collection [Enumerable]
@@ -18,9 +18,9 @@ module Twin
     # @return [Float]
     def distance(a, b)
       if a.is_a?(String) && b.is_a?(String)
-        Twin::Utilities.string_distance(a, b) * -1
+        Twins::Utilities.string_distance(a, b) * -1
       elsif a.is_a?(Numeric) && b.is_a?(Numeric)
-        Twin::Utilities.numeric_distance(a, b)
+        Twins::Utilities.numeric_distance(a, b)
       else
         raise StandardError, "Distance can only be determined between two elements of kind 'String' or 'Numeric'"
       end

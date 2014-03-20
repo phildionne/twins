@@ -2,11 +2,11 @@
 
 Twin sorts through the small differences between multiple objects and smartly consolidate all of them together.
 
-[![Gem Version](https://badge.fury.io/rb/twin.png)](http://badge.fury.io/rb/twin)
-[![Code Climate](https://codeclimate.com/github/phildionne/twin.png)](https://codeclimate.com/github/phildionne/twin)
-[![Coverage Status](https://coveralls.io/repos/phildionne/twin/badge.png)](https://coveralls.io/r/phildionne/twin)
-[![Dependency Status](https://gemnasium.com/phildionne/twin.png)](https://gemnasium.com/phildionne/twin)
-[![Build Status](https://travis-ci.org/phildionne/twin.png)](https://travis-ci.org/phildionne/twin)
+[![Gem Version](https://badge.fury.io/rb/twins.png)](http://badge.fury.io/rb/twins)
+[![Code Climate](https://codeclimate.com/github/phildionne/twins.png)](https://codeclimate.com/github/phildionne/twins)
+[![Coverage Status](https://coveralls.io/repos/phildionne/twins/badge.png)](https://coveralls.io/r/phildionne/twins)
+[![Dependency Status](https://gemnasium.com/phildionne/twins.png)](https://gemnasium.com/phildionne/twins)
+[![Build Status](https://travis-ci.org/phildionne/twins.png)](https://travis-ci.org/phildionne/twins)
 
 ## Usage
 
@@ -47,7 +47,7 @@ books = [{
 }]
 
 
-Twin.consolidate(books)
+Twins.consolidate(books)
 {
   title: "Shantaram",
   author: "Gregory David Roberts",
@@ -67,7 +67,7 @@ options = {
   }
 }
 
-Twin.consolidate(books, options)
+Twins.consolidate(books, options)
 {
   title: "Shantaram: A Novel",
   author: "Gregory David Roberts",
@@ -96,4 +96,4 @@ Twin.consolidate(books, options)
 
 # License
 
-See [LICENSE](https://github.com/phildionne/twin/blob/master/LICENSE)
+See [LICENSE](https://github.com/phildionne/twins/blob/master/LICENSE)
