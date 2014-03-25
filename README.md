@@ -1,6 +1,6 @@
-# Twin
+# Twins
 
-Twin sorts through the small differences between multiple objects and smartly consolidate all of them together.
+Twins sorts through the small differences between multiple objects and smartly consolidate all of them together.
 
 [![Gem Version](https://badge.fury.io/rb/twins.png)](http://badge.fury.io/rb/twins)
 [![Code Climate](https://codeclimate.com/github/phildionne/twins.png)](https://codeclimate.com/github/phildionne/twins)
@@ -10,7 +10,7 @@ Twin sorts through the small differences between multiple objects and smartly co
 
 ## Usage
 
-By default `Twin` will determine the candidate value based on the most frequent value present for a same key, also known as the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)).
+By default `Twins` will determine the candidate value based on the most frequent value present for a same key, also known as the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)).
 
 ```ruby
 books = [{
@@ -58,7 +58,7 @@ Twins.consolidate(books)
 }
 ```
 
-You may also provide `Twin` with priorities for `String` and `Numeric` attributes, which will precede on the mode while determining the canditate value. [String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
+You may also provide `Twins` with priorities for `String` and `Numeric` attributes, which will precede on the mode while determining the canditate value. [String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
 
 ```ruby
 options = {
