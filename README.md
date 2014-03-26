@@ -9,7 +9,7 @@ Twins sorts through the small differences between multiple objects and smartly c
 
 ## Usage
 
-By default `Twins` will determine the candidate value based on the most frequent value present for a same key, also known as the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)).
+Let's say you have a collection of objects representing the same book but from different sources, which brings the possibility for each object to be slightly different from one another.
 
 ```ruby
 books = [{
@@ -44,8 +44,13 @@ books = [{
     paperback: true
   }
 }]
+```
 
+### Consolidate
 
+Assembles a new `Hash` based on every elements in the collection. By default `Twins#consolidate` will determine the candidate values based on the most frequent value present for a given key, also known as the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)).
+
+```ruby
 Twins.consolidate(books)
 {
   title: "Shantaram",
@@ -57,7 +62,7 @@ Twins.consolidate(books)
 }
 ```
 
-You may also provide `Twins` with priorities for `String` and `Numeric` attributes, which will precede on the mode while determining the canditate value. [String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
+You may also provide `Twins#consolidate` with priorities for `String` and `Numeric` attributes, which will precede on the mode while determining the canditate value.
 
 ```ruby
 options = {
@@ -76,6 +81,13 @@ Twins.consolidate(books, options)
   }
 }
 ```
+
+## Internals
+
+### Distance
+
+[String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
+
 
 # Contributing
 
