@@ -15,7 +15,7 @@ module Twins
     if collection.first.is_a?(Hash)
       indiff_collection = collection
     else
-      indiff_collection = collection.map { |element| element.to_h }
+      indiff_collection = collection.map { |element| element.to_hash }
     end
 
     options = options.with_indifferent_access
@@ -77,14 +77,14 @@ module Twins
     if collection.first.is_a?(Hash)
       indiff_collection = collection
     else
-      indiff_collection = collection.map { |element| element.to_h.with_indifferent_access }
+      indiff_collection = collection.map { |element| element.to_hash.with_indifferent_access }
     end
 
     collection.max_by do |element|
       if collection.first.is_a?(Hash)
         indiff_element = element
       else
-        indiff_element = element.to_h.with_indifferent_access
+        indiff_element = element.to_hash.with_indifferent_access
       end
 
       # Build a map of modes for each existing key
@@ -114,7 +114,7 @@ module Twins
       if collection.first.is_a?(Hash)
         indiff_element = element
       else
-        indiff_element = element.to_h.with_indifferent_access
+        indiff_element = element.to_hash.with_indifferent_access
       end
 
       priorities.map do |key, value|
@@ -128,8 +128,8 @@ module Twins
   def ensure_collection_uniformity!(collection)
     if collection.none? { |e| e.is_a?(Hash) || e.is_a?(collection.first.class) }
       raise ArgumentError, "The collection's elements must all be of the same Class"
-    elsif collection.none? { |e| e.respond_to?(:to_h) }
-      raise ArgumentError, "The collection's elements must respond to '#to_h'"
+    elsif collection.none? { |e| e.respond_to?(:to_hash) }
+      raise ArgumentError, "The collection's elements must respond to '#to_hash'"
     end
   end
   module_function :ensure_collection_uniformity!
