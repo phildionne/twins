@@ -10,15 +10,9 @@ module Twins
   # @return [HashWithIndifferentAccess, Nil]
   def consolidate(collection, options = {})
     return nil unless collection.any?
+    ensure_collection_uniformity!(collection)
 
-    if collection.all? { |e| e.is_a?(Hash) }
-      # noop
-    elsif collection.all? { |e| e.is_a?(collection.first.class) }
-      collection = collection.map do |element|
-        Hash[element.instance_variables.map { |name| [name.to_s.sub(/\A@/, ''), element.instance_variable_get(name)] }]
-      end
     else
-      raise ArgumentError, "The collection's elements must all be of the same Class"
     end
 
     options = options.with_indifferent_access
@@ -51,4 +45,14 @@ module Twins
     consolidated.with_indifferent_access
   end
   module_function :consolidate
+  # @private
+  def ensure_collection_uniformity!(collection)
+    if collection.none? { |e| e.is_a?(Hash) || e.is_a?(collection.first.class) }
+      raise ArgumentError, "The collection's elements must all be of the same Class"
+    elsif collection.none? { |e| e.respond_to?(:to_h) }
+      raise ArgumentError, "The collection's elements must respond to '#to_h'"
+    end
+  end
+  module_function :ensure_collection_uniformity!
+  private_class_method :ensure_collection_uniformity!
 end
