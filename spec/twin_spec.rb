@@ -142,4 +142,51 @@ describe Twins do
       end
     end
   end
+
+  describe :pick do
+
+    describe "with an empty collection" do
+      let(:collection) { [] }
+      it { expect(Twins.pick(collection)).to eq(nil) }
+    end
+
+    describe "with a collection of all same elements" do
+      let(:element1) { { a: 'a' } }
+      let(:element2) { { a: 'a' } }
+      let(:element3) { { a: 'a' } }
+      let(:collection) { [element1, element2, element3] }
+      it { expect(Twins.pick(collection)).to be(element1) }
+    end
+
+    describe "with a collection of all different elements" do
+      let(:element1) { { a: 'a' } }
+      let(:element2) { { b: 'b' } }
+      let(:element3) { { c: 'c' } }
+      let(:collection) { [element1, element2, element3] }
+      it { expect(Twins.pick(collection)).to be(element1) }
+    end
+
+    describe "with a collection of same and different elements" do
+      let(:element1) { { a: 'a', b: 'b' } }
+      let(:element2) { { a: 'a', b: 'b' } }
+      let(:element3) { { a: 'a', b: 'b', c: 'c' } }
+      let(:collection) { [element1, element2, element3] }
+      it { expect(Twins.pick(collection)).to be(element3) }
+    end
+
+    describe "with Objects defining '#to_h'" do
+      before do
+        class Klass
+          attr_accessor :a, :b
+          def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
+          def to_h; {a: a, b: b}; end
+        end
+      end
+      let(:element1) { Klass.new({a: 'some', b: 'thing'}) }
+      let(:element2) { Klass.new({a: 'another', b: 'thing'}) }
+      let(:collection) { [element1, element2] }
+
+      it { expect(Twins.pick(collection)).to be(element1) }
+    end
+  end
 end

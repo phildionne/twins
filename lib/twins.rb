@@ -47,6 +47,83 @@ module Twins
     consolidated.with_indifferent_access
   end
   module_function :consolidate
+
+  # Find element with the highest count of modes or the lowest overall distances
+  #
+  # @param collection [Enumerable] A collection of Hash or Hash-like objects
+  # @param options [Hash]
+  # @return [Object, Nil]
+  def pick(collection, options = {})
+    return nil unless collection.any?
+    ensure_collection_uniformity!(collection)
+
+    options = options.with_indifferent_access
+
+    if options[:priority]
+      pick_by_priority(collection, options[:priority])
+    else
+      pick_by_mode(collection)
+    end
+  end
+  module_function :pick
+
+  # Find the element with the highest count of modes
+  #
+  # @param collection [Enumerable]
+  # @return [Object, Nil]
+  def pick_by_mode(collection)
+    return nil unless collection.any?
+
+    if collection.first.is_a?(Hash)
+      indiff_collection = collection
+    else
+      indiff_collection = collection.map { |element| element.to_h.with_indifferent_access }
+    end
+
+    collection.max_by do |element|
+      if collection.first.is_a?(Hash)
+        indiff_element = element
+      else
+        indiff_element = element.to_h.with_indifferent_access
+      end
+
+      # Build a map of modes for each existing key
+      modes = indiff_element.map do |key, value|
+        # Filter elements without a given key to avoid unintentionally nil values
+        values = indiff_collection.select { |el| el.has_key?(key) }.map { |el| el[key] }
+        [key, Twins::Utilities.mode(values)]
+      end
+      modes = Hash[modes]
+
+      # Count the number of modes present in element
+      modes.select { |key, mode| indiff_element[key] == mode }.count
+    end
+  end
+  module_function :pick_by_mode
+
+  # Find the element with the lowest overall distances
+  #
+  # @param collection [Enumerable]
+  # @param options [Hash]
+  # @return [Object, Nil]
+  def pick_by_priority(collection, priorities)
+    return nil unless collection.any?
+    raise ArgumentError unless priorities.is_a?(Hash)
+
+    collection.min_by do |element|
+      if collection.first.is_a?(Hash)
+        indiff_element = element
+      else
+        indiff_element = element.to_h.with_indifferent_access
+      end
+
+      priorities.map do |key, value|
+        Twins::Utilities.distance(value, indiff_element[key])
+      end.sum
+    end
+  end
+  module_function :pick_by_priority
+
   # @private
   def ensure_collection_uniformity!(collection)
     if collection.none? { |e| e.is_a?(Hash) || e.is_a?(collection.first.class) }
