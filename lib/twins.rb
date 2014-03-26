@@ -12,21 +12,23 @@ module Twins
     return nil unless collection.any?
     ensure_collection_uniformity!(collection)
 
+    if collection.first.is_a?(Hash)
+      indiff_collection = collection
     else
+      indiff_collection = collection.map { |element| element.to_h }
     end
 
     options = options.with_indifferent_access
     consolidated = Hash.new
 
-    collection.each do |hash|
-      hash.each_pair do |key, value|
-
+    indiff_collection.each do |element|
+      element.each_pair do |key, value|
         # Recursively consolidate nested hashes
         if value.is_a?(Hash) && !consolidated[key]
-          consolidated[key] = consolidate(collection.map { |element| element[key] })
+          consolidated[key] = consolidate(indiff_collection.map { |el| el[key] })
         else
           # Filter elements without a given key to avoid unintentionally nil values
-          values = collection.select { |element| element.has_key?(key) }.map { |element| element[key] }
+          values = indiff_collection.select { |el| el.has_key?(key) }.map { |el| el[key] }
 
           if options[:priority].try(:[], key)
             # Compute each element's distance from the given priority

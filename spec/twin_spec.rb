@@ -70,11 +70,12 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
-    describe "with Objects defining instance variables" do
+    describe "with Objects defining '#to_h'" do
       before do
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
+          def to_h; {a: a, b: b}; end
         end
       end
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
