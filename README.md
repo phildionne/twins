@@ -4,7 +4,6 @@ Twins sorts through the small differences between multiple objects and smartly c
 
 [![Gem Version](https://badge.fury.io/rb/twins.png)](http://badge.fury.io/rb/twins)
 [![Code Climate](https://codeclimate.com/github/phildionne/twins.png)](https://codeclimate.com/github/phildionne/twins)
-[![Coverage Status](https://coveralls.io/repos/phildionne/twins/badge.png)](https://coveralls.io/r/phildionne/twins)
 [![Dependency Status](https://gemnasium.com/phildionne/twins.png)](https://gemnasium.com/phildionne/twins)
 [![Build Status](https://travis-ci.org/phildionne/twins.png)](https://travis-ci.org/phildionne/twins)
 
