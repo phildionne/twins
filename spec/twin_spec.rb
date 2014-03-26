@@ -70,12 +70,12 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
-    describe "with Objects defining '#to_h'" do
+    describe "with Objects defining '#to_hash'" do
       before do
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
-          def to_h; {a: a, b: b}; end
+          def to_hash; {a: a, b: b}; end
         end
       end
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
@@ -174,12 +174,12 @@ describe Twins do
       it { expect(Twins.pick(collection)).to be(element3) }
     end
 
-    describe "with Objects defining '#to_h'" do
+    describe "with Objects defining '#to_hash'" do
       before do
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
-          def to_h; {a: a, b: b}; end
+          def to_hash; {a: a, b: b}; end
         end
       end
       let(:element1) { Klass.new({a: 'some', b: 'thing'}) }
