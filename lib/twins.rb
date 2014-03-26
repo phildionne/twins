@@ -3,9 +3,11 @@ require 'twins/utilities'
 
 module Twins
 
-  # @param collection [Enumerable] A collection of Hash objects
+  # Consolidates keys with mode or lowest distance
+  #
+  # @param collection [Enumerable] A collection of Hash or Hash-like objects
   # @param options [Hash]
-  # @return [Hash, Nil]
+  # @return [HashWithIndifferentAccess, Nil]
   def consolidate(collection, options = {})
     return nil unless collection.any?
 
