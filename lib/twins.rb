@@ -112,7 +112,7 @@ module Twins
 
     collection.min_by do |element|
       if collection.first.is_a?(Hash)
-        indiff_element = element
+        indiff_element = element.with_indifferent_access
       else
         indiff_element = element.to_hash.with_indifferent_access
       end
