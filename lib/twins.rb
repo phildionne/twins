@@ -9,7 +9,7 @@ module Twins
   # @param options [Hash]
   # @return [HashWithIndifferentAccess, Nil]
   def consolidate(collection, options = {})
-    return nil unless collection.any?
+    return nil if collection.empty?
     ensure_collection_uniformity!(collection)
 
     if collection.first.is_a?(Hash)
@@ -54,7 +54,7 @@ module Twins
   # @param options [Hash]
   # @return [Object, Nil]
   def pick(collection, options = {})
-    return nil unless collection.any?
+    return nil if collection.empty?
     ensure_collection_uniformity!(collection)
 
     options = options.with_indifferent_access
@@ -72,7 +72,7 @@ module Twins
   # @param collection [Enumerable]
   # @return [Object, Nil]
   def pick_by_mode(collection)
-    return nil unless collection.any?
+    return nil if collection.empty?
 
     if collection.first.is_a?(Hash)
       indiff_collection = collection
@@ -107,7 +107,7 @@ module Twins
   # @param options [Hash]
   # @return [Object, Nil]
   def pick_by_priority(collection, priorities)
-    return nil unless collection.any?
+    return nil if collection.empty?
     raise ArgumentError unless priorities.is_a?(Hash)
 
     collection.min_by do |element|
