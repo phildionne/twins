@@ -41,6 +41,7 @@ describe Twins do
           }
         ]
       end
+
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: [{ x: 'x' }] }.with_indifferent_access) }
     end
 
@@ -67,6 +68,7 @@ describe Twins do
           }
         ]
       end
+
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
@@ -82,6 +84,7 @@ describe Twins do
 
         Object.send(:remove_const, :Klass)
       end
+
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
 
       it { expect(Twins.consolidate(collection)).to eq({ a: 'some', b: 'thing' }.with_indifferent_access) }
@@ -98,6 +101,7 @@ describe Twins do
 
         Object.send(:remove_const, :Klass)
       end
+
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
 
       it { expect { Twins.consolidate(collection) }.to raise_error }
@@ -175,6 +179,7 @@ describe Twins do
       let(:element2) { { a: 'a' } }
       let(:element3) { { a: 'a' } }
       let(:collection) { [element1, element2, element3] }
+
       it { expect(Twins.pick(collection)).to be(element1) }
     end
 
@@ -183,6 +188,7 @@ describe Twins do
       let(:element2) { { b: 'b' } }
       let(:element3) { { c: 'c' } }
       let(:collection) { [element1, element2, element3] }
+
       it { expect(Twins.pick(collection)).to be(element1) }
     end
 
@@ -191,6 +197,7 @@ describe Twins do
       let(:element2) { { a: 'a', b: 'b' } }
       let(:element3) { { a: 'a', b: 'b', c: 'c' } }
       let(:collection) { [element1, element2, element3] }
+
       it { expect(Twins.pick(collection)).to be(element3) }
     end
 
@@ -225,6 +232,7 @@ describe Twins do
 
         Object.send(:remove_const, :Klass)
       end
+
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
 
       it { expect { Twins.pick(collection) }.to raise_error }
