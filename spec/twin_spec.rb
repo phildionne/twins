@@ -71,11 +71,16 @@ describe Twins do
     end
 
     describe "with a collection of Objects defining '#to_hash'" do
+      around do |example|
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
           def to_hash; {a: a, b: b}; end
         end
+
+        example.run
+
+        Object.send(:remove_const, :Klass)
       end
       let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
 
@@ -174,13 +179,18 @@ describe Twins do
     end
 
     describe "with a collection of Objects defining '#to_hash'" do
-      before do
+      around do |example|
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
           def to_hash; {a: a, b: b}; end
         end
+
+        example.run
+
+        Object.send(:remove_const, :Klass)
       end
+
       let(:element1) { Klass.new({a: 'some', b: 'thing'}) }
       let(:element2) { Klass.new({a: 'another', b: 'thing'}) }
       let(:collection) { [element1, element2] }
