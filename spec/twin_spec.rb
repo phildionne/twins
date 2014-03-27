@@ -24,7 +24,7 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: 'b', c: 'c' }.with_indifferent_access) }
     end
 
-    describe "with nested arrays" do
+    describe "with a collection of hashes with nested arrays" do
       let(:collection) do
         [
           {
@@ -44,7 +44,7 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: [{ x: 'x' }] }.with_indifferent_access) }
     end
 
-    describe "with nested hashes" do
+    describe "with a collection of hashes with nested hashes" do
       let(:collection) do
         [
           { a: 'a',
@@ -70,8 +70,7 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'a', b: { x: 'x', y: 'y' }}.with_indifferent_access) }
     end
 
-    describe "with Objects defining '#to_hash'" do
-      before do
+    describe "with a collection of Objects defining '#to_hash'" do
         class Klass
           attr_accessor :a, :b
           def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
@@ -174,7 +173,7 @@ describe Twins do
       it { expect(Twins.pick(collection)).to be(element3) }
     end
 
-    describe "with Objects defining '#to_hash'" do
+    describe "with a collection of Objects defining '#to_hash'" do
       before do
         class Klass
           attr_accessor :a, :b
