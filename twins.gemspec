@@ -20,5 +20,5 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(spec)/})
 
   s.add_dependency 'activesupport'
-  s.add_dependency 'amatch', '0.2.11'
+  s.add_dependency 'amatch', '~> 0.3'
 end
