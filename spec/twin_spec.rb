@@ -237,5 +237,93 @@ describe Twins do
 
       it { expect { Twins.pick(collection) }.to raise_error }
     end
+
+    context "with options" do
+
+      describe :priority do
+
+        describe "a String" do
+          let(:options) { { priority: { element: 'something' } } }
+
+          describe "with a single match" do
+            let(:element1) { { element: 'something' } }
+            let(:element2) { { element: 'something' } }
+            let(:collection) { [element1, element2] }
+
+            it { expect(Twins.pick(collection, options)).to be(element1) }
+          end
+
+          describe "with multiple matches" do
+            let(:element1) { { element: 'some' } }
+            let(:element2) { { element: 'thing' } }
+            let(:element3) { { element: 'something' } }
+            let(:collection) { [element1, element2, element3] }
+
+            it { expect(Twins.pick(collection, options)).to be(element3) }
+          end
+
+          describe "with no match" do
+            let(:element1) { { element: 'thing1' } }
+            let(:element2) { { element: 'thing2' } }
+            let(:collection) { [element1, element2] }
+
+            it { expect(Twins.pick(collection, options)).to be(element1) }
+          end
+        end
+
+        describe "a Numeric" do
+          let(:options) { { priority: { element: 10 } } }
+
+          describe "with no difference and no mode" do
+            let(:element1) { { element: 10 } }
+            let(:collection) { [element1] }
+
+            it { expect(Twins.pick(collection, options)).to be(element1) }
+          end
+
+          describe "with no difference and a mode" do
+            let(:element1) { { element: 10 } }
+            let(:element2) { { element: 10 } }
+            let(:collection) { [element1, element2] }
+
+            it { expect(Twins.pick(collection, options)).to be(element1) }
+          end
+
+          describe "with a higher difference and no mode" do
+            let(:element1) { { element: 1 } }
+            let(:element2) { { element: 2 } }
+            let(:collection) { [element1, element2] }
+
+            it { expect(Twins.pick(collection, options)).to be(element2) }
+          end
+
+          describe "with a higher difference and a mode" do
+            let(:element1) { { element: 1 } }
+            let(:element2) { { element: 1 } }
+            let(:element3) { { element: 2 } }
+            let(:collection) { [element1, element2, element3] }
+
+            it { expect(Twins.pick(collection, options)).to be(element3) }
+          end
+
+          describe "with a lower difference and no mode" do
+            let(:element1) { { element: 1 } }
+            let(:element2) { { element: 2 } }
+            let(:collection) { [element1, element2] }
+
+            it { expect(Twins.pick(collection, options)).to be(element2) }
+          end
+
+          describe "with a lower difference and a mode" do
+            let(:element1) { { element: 1 } }
+            let(:element2) { { element: 2 } }
+            let(:element3) { { element: 2 } }
+            let(:collection) { [element1, element2, element3] }
+
+            it { expect(Twins.pick(collection, options)).to be(element2) }
+          end
+        end
+      end
+    end
   end
 end
