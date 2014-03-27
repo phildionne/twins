@@ -87,6 +87,22 @@ describe Twins do
       it { expect(Twins.consolidate(collection)).to eq({ a: 'some', b: 'thing' }.with_indifferent_access) }
     end
 
+    describe "with a collection of Objects not defining '#to_hash'" do
+      around do |example|
+        class Klass
+          attr_accessor :a, :b
+          def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
+        end
+
+        example.run
+
+        Object.send(:remove_const, :Klass)
+      end
+      let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
+
+      it { expect { Twins.consolidate(collection) }.to raise_error }
+    end
+
     context "with options" do
 
       describe :priority do
@@ -196,6 +212,22 @@ describe Twins do
       let(:collection) { [element1, element2] }
 
       it { expect(Twins.pick(collection)).to be(element1) }
+    end
+
+    describe "with a collection of Objects not defining '#to_hash'" do
+      around do |example|
+        class Klass
+          attr_accessor :a, :b
+          def initialize(attrs = {}); attrs.each { |k,v| send("#{k}=", v) }; end
+        end
+
+        example.run
+
+        Object.send(:remove_const, :Klass)
+      end
+      let(:collection) { [Klass.new({a: 'some', b: 'thing'}), Klass.new({a: 'another', b: 'thing'})] }
+
+      it { expect { Twins.pick(collection) }.to raise_error }
     end
   end
 end
