@@ -82,6 +82,42 @@ Twins.consolidate(books, options)
 }
 ```
 
+### Pick
+
+Selects the collection's most representative element. By default `Twins.pick` will determine the candidate element based on the highest count of modes present for a given element.
+
+```ruby
+Twins.pick(books)
+{
+  title: "Shantaram",
+  author: "Gregory David Roberts",
+  published: 2012,
+  details: {
+    paperback: true
+  }
+}
+```
+
+You may also provide `Twins#pick` with priorities for `String` and `Numeric` attributes, which will be used to compute each element's overall distance while determining the canditate element.
+
+```ruby
+options = {
+  priority: {
+    title: "Novel"
+  }
+}
+
+Twins.pick(books, options)
+{
+  title: "Shantaram: A Novel",
+  author: "Gregory David Roberts",
+  published: 2012,
+  details: {
+    paperback: true
+  }
+}
+```
+
 ## Internals
 
 ### Distance
