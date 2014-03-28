@@ -15,7 +15,7 @@ Let's say you have a collection of objects representing the same book but from d
 books = [{
   title: "Shantaram: A Novel",
   author: "Gregory David Roberts",
-  published: 2005,
+  published: 2012,
   details: {
     paperback: true
   }
@@ -75,7 +75,7 @@ Twins.consolidate(books, options)
 {
   title: "Shantaram: A Novel",
   author: "Gregory David Roberts",
-  published: 2005,
+  published: 2012,
   details: {
     paperback: true
   }
