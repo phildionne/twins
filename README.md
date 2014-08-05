@@ -122,7 +122,7 @@ Twins.pick(books, options)
 
 ### Distance
 
-[String distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L32) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
+[String distances](https://github.com/phildionne/twins/blob/master/lib/twins/utilities.rb#L19) are calculated using a [longest subsequence algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) and [Numeric distances](https://github.com/phildionne/twin/blob/master/lib/twin/utilities.rb#L40) are calculated with their difference.
 
 
 # Contributing
