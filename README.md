@@ -6,6 +6,7 @@ Twins sorts through the small differences between multiple objects and smartly c
 [![Code Climate](https://codeclimate.com/github/phildionne/twins.png)](https://codeclimate.com/github/phildionne/twins)
 [![Dependency Status](https://gemnasium.com/phildionne/twins.png)](https://gemnasium.com/phildionne/twins)
 [![Build Status](https://travis-ci.org/phildionne/twins.png)](https://travis-ci.org/phildionne/twins)
+[![twins API Documentation](https://www.omniref.com/ruby/gems/twins.png)](https://www.omniref.com/ruby/gems/twins)
 
 ## Usage
 
@@ -136,6 +137,10 @@ Twins.pick(books, options)
 7. Commit your changes and push
 8. [Submit a pull request](http://help.github.com/send-pull-requests/)
 9. Thank you!
+
+# TODO
+
+- Think about using [jaccard](https://github.com/francois/jaccard) to weight items
 
 # Author
 
